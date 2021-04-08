@@ -1,16 +1,12 @@
 <?php
       // si le bouton "valid" est envoyé
-if (isset($_POST['valid']))
-{
+if (isset($_POST['valid'])) {
    /* on test si les champ sont bien remplis */
-    if(!empty($_POST['Nom']) and !empty($_POST['Prenom']) and !empty($_POST['Email']) and !empty($_POST['password']) and !empty($_POST['repeatpassword']))
-    {
+    if(!empty($_POST['Nom']) and !empty($_POST['Prenom']) and !empty($_POST['Email']) and !empty($_POST['password']) and !empty($_POST['repeatpassword'])) {
         /* on test si le mdp contient bien au moins 6 caractère */
-        if (strlen($_POST['password'])>=6)
-        {      
+        if (strlen($_POST['password'])>=6) {      
             /* on test si les deux mdp sont bien identique */
-                if($_POST['password']==$_POST['repeatpassword'])
-            {
+                if($_POST['password']==$_POST['repeatpassword']) {
                 // On crypte le mot de passe
                 $_POST['password']= md5($_POST['password']);
 
@@ -26,19 +22,23 @@ if (isset($_POST['valid']))
                     $req->execute (array($_POST["Nom"],$_POST["Prenom"],$_POST["Email"],$_POST["password"]));
                     echo "<br>Donnée entrée dans la BDD ";
                 
-                    }   
+                }   
                     //on attrape l'erreur qu'on stock dans la variable $e
                 catch(PDOException $e) { 
                     //la variable $e utilise la methode "getMessage"
                     echo $e->getMessage();
 
-                                        }                         
+                }                         
                 //Confirmation inscription
                             
-            }  else echo "Les mots de passe ne sont pas identiques !"; 
-         }
-        else echo " Le mot de passe est trop court !";
+                }  
+                else 
+                    echo "Les mots de passe ne sont pas identiques !"; 
+        }
+        else 
+            echo " Le mot de passe est trop court !";
 
-    } else echo "Veuillez saisir tous les champs !";
+    } 
+        else echo "Veuillez saisir tous les champs !";
 } 
 ?>
