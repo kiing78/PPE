@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 10 mars 2021 à 01:06
--- Version du serveur :  10.4.16-MariaDB
--- Version de PHP : 7.4.12
+-- Généré le : jeu. 22 avr. 2021 à 11:31
+-- Version du serveur :  10.4.17-MariaDB
+-- Version de PHP : 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,12 +28,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `connexion` (
-  `id` int(11) NOT NULL,
-  `Nom` varchar(30) NOT NULL,
-  `Prenom` varchar(30) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Nom` varchar(20) COLLATE utf8_bin NOT NULL,
+  `Prenom` varchar(20) COLLATE utf8_bin NOT NULL,
+  `Email` varchar(50) COLLATE utf8_bin NOT NULL,
+  `password` varchar(20) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `connexion`
+--
+
+INSERT INTO `connexion` (`Nom`, `Prenom`, `Email`, `password`) VALUES
+('lordinot', 'kevin', 'kev97250@hotmail.fr', 'azerty'),
+('laka', 'zaera', 'zaza@hotmail.fr', 'azerty');
 
 -- --------------------------------------------------------
 
@@ -42,56 +49,44 @@ CREATE TABLE `connexion` (
 --
 
 CREATE TABLE `stock` (
-  `Reference` int(10) UNSIGNED NOT NULL,
-  `Genre` varchar(20) COLLATE utf8_bin NOT NULL,
-  `TypeVet` varchar(20) COLLATE utf8_bin NOT NULL,
-  `Taille` varchar(20) COLLATE utf8_bin NOT NULL,
-  `Couleur` varchar(20) COLLATE utf8_bin NOT NULL,
-  `PrixUnite` float NOT NULL,
-  `QuantiteDispo` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `id` int(11) NOT NULL,
+  `Genre` varchar(20) NOT NULL,
+  `TypeVet` varchar(20) NOT NULL,
+  `Taille` varchar(20) NOT NULL,
+  `Couleur` varchar(20) NOT NULL,
+  `PrixUnite` int(11) NOT NULL,
+  `QuantiteDispo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `stock`
 --
 
-INSERT INTO `stock` (`Reference`, `Genre`, `TypeVet`, `Taille`, `Couleur`, `PrixUnite`, `QuantiteDispo`) VALUES
-(1, 'Homme', 'Pantalon', '1an-6ans', 'Rouge', 12.99, 10),
-(2, 'Femme', 'Pantalon', '1an-6ans', 'Rouge', 10.99, 10),
-(3, 'Homme', 'Pantalon', '1an-6ans', 'Rouge', 12.99, 10),
-(4, 'Femme', 'Pantalon', '1an-6ans', 'Rouge', 10.99, 10);
+INSERT INTO `stock` (`id`, `Genre`, `TypeVet`, `Taille`, `Couleur`, `PrixUnite`, `QuantiteDispo`) VALUES
+(1, 'Homme', 'Pantalon', '1an-6ans', 'Bleu', 20, 88),
+(4, 'Femme', 'Robe', 'Adulte', 'Beige', 21, 9),
+(5, 'Homme', 'Pantalon', '7ans-12ans', 'Beige', 10, 19),
+(6, 'Homme', 'Chemise', '1an-6ans', 'Vert', 25, 100);
 
 --
 -- Index pour les tables déchargées
 --
 
 --
--- Index pour la table `connexion`
---
-ALTER TABLE `connexion`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Index pour la table `stock`
 --
 ALTER TABLE `stock`
-  ADD PRIMARY KEY (`Reference`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `connexion`
---
-ALTER TABLE `connexion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `Reference` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
