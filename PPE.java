@@ -17,7 +17,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -30,6 +29,7 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 	JButton boutonCons = new JButton("Consultation");
 	JButton boutonDel = new JButton("Delete");
 	JButton boutonInser = new JButton("Inserer");
+	JButton boutonUpdate = new JButton("Update");
 	JButton boutonClear = new JButton("Clear");
 	JButton boutonClearStock = new JButton("Effacer stock");
 
@@ -49,15 +49,15 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 	//Labels
 	private JLabel labelPrix = new JLabel("Saisir prix");
 	private JLabel labelQte = new JLabel("Saisir une Quantité");
-	private JLabel labelRef = new JLabel("Saisir une Référence");
+	private JLabel labelId = new JLabel("Saisir l'id");
 	
 	//zone de résultat
 	private JTextArea zoneResultat = new JTextArea(10,30);
-	private JScrollPane scroll = new JScrollPane(zoneResultat);
+	
 	
 	//zone de saisie
 	private JTextField prix = new JTextField(20);
-	private JTextField ref = new JTextField(20);
+	private JTextField id = new JTextField(20);
 	private JTextField qte = new JTextField(20);
 	
 
@@ -68,7 +68,7 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 		
 //-------création de la fenetre ------------------------------------------------------
 		//titre de la fenetre
-		setTitle("Fenetre");
+		setTitle("fenetre Stock");
 		
 		//fermeture du processus
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,10 +99,11 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 		pan.add(boutonCons);
 		pan.add(boutonDel);
 		pan.add(boutonInser);
+		pan.add(boutonUpdate);
 		pan.add(boutonClear);
 		pan.add(boutonClearStock);
-		pan.add(labelRef);
-		pan.add(ref);
+		pan.add(labelId);
+		pan.add(id);
 		pan.add(genre);
 		pan.add(typeVetement);
 		pan.add(taille);
@@ -112,7 +113,7 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 		pan.add(labelQte);
 		pan.add(qte);
 		pan.add(zoneResultat);
-		pan.add(scroll);
+		
 		
 		
 		
@@ -121,6 +122,7 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 		boutonDel.addActionListener(this);
 		boutonInser.addActionListener(this);
 		boutonClear.addActionListener(this);
+		boutonUpdate.addActionListener(this);
 		boutonClearStock.addActionListener(this);
 		genre.addActionListener(this);
 		taille.addActionListener(this);
@@ -128,7 +130,7 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 		listeCouleurs.addActionListener(this);
 		prix.addActionListener(this);
 		qte.addActionListener(this);
-		ref.addActionListener(this);
+		id.addActionListener(this);
 		
 		//associe les items à cette fenetre
 		
@@ -153,7 +155,9 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 	 		String couleur=(String) listeCouleurs.getSelectedItem();
 	 		String Prix= prix.getText();
 	 		String Qte= qte.getText();
-	 		String Ref= ref.getText();
+	 		String Id=id.getText();
+	 		
+	 		
 		 	
 	 		//Consultation
 		 	if(e.getSource()==boutonCons) {
@@ -169,7 +173,7 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 					req = req + "'"+genre1 + "'"+","+ "'"+typeVet + "'"+ ","+ "'"+taille1 +"'"+","+"'"+couleur +"'"+","+"'"+Prix+"'"+","+"'"+Qte+"'"+")";
 				
 		 		refBdd.envoiRequeteUpdate(req);
-		 		zoneResultat.append("votre demande a été valider\n");
+		 		zoneResultat.append("votre demande a été validée\n");
 				
 		 		}
 		 		else {
@@ -178,15 +182,15 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 		 	}
 		 	//Supprimer
 		 	else if(e.getSource()== boutonDel){
-		 		if(!Ref.isEmpty()) {
-		 			String	req = "DELETE FROM stock WHERE Reference="+Ref;
+		 		if(!Id.isEmpty()) {
+		 			String	req = "DELETE FROM stock WHERE id="+Id;
 					
 				
 		 		refBdd.envoiRequeteUpdate(req);
-		 		zoneResultat.append("votre demande a été valider\n");
+		 		zoneResultat.append("votre demande a été validée\n");
 		 		}
 		 		else {
-		 			zoneResultat.append("Veuillez saisir uniquement une référence à supprimer\n");
+		 			zoneResultat.append("Veuillez saisir l'article  à supprimer\n");
 		 		}
 		 		
 		 		
@@ -201,9 +205,20 @@ public class PPE extends JFrame implements ActionListener, ItemListener{
 		 		
 		 		
 		 		refBdd.envoiRequeteUpdate("DELETE stock.* from stock");
-		 		zoneResultat.append("votre demande a été valider\n");
+		 		zoneResultat.append("votre demande a été validée\n");
 		 		
 		 	}
+		 	//Update
+		 	/*else if (e.getSource()== boutonUpdate) {
+		 			if(!Qte.isEmpty()&& !Id.isEmpty()) {
+		 				String req="UPDATE stock SET QuantiteDispo="+Qte+"WHERE id="+Id;
+		 				refBdd.envoiRequeteUpdate(req);
+		 				zoneResultat.append("votre demande a été validée\n");
+		 			}
+		 			else {
+		 				zoneResultat.append("veuillez indiquer l'id et la quantité\n");
+		 			}
+		 	}*/
 		 	else {
 		 		
 		 	}
